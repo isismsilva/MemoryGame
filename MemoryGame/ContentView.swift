@@ -8,19 +8,49 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+  
+  @ObservedObject var model: EmojiMemoryGame
+  
+  var body: some View {
+    VStack {
+      ScrollView {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))], spacing: 4) {
+          
+          ForEach(model.cards, id: \.id) { card in
+            CardView(card: card)
+              .aspectRatio(2/3, contentMode: .fit)
+              .onTapGesture {
+                model.choose(card: card)
+              }
+          }
         }
-        .padding()
+      }
     }
+    .padding()
+  }
+}
+
+struct CardView: View {
+  let card: EmojiMemoryGame.card
+  let shape =  RoundedRectangle(cornerRadius: 20)
+  
+  var body: some View {
+    ZStack {
+      if card.isFaceUp {
+        shape.fill(.white)
+        shape.strokeBorder(.orange, lineWidth: 2)
+        Text(card.content).font(.largeTitle)
+      } else if card.isMatched {
+        shape.opacity(0)
+      } else {
+        shape.fill(Color.orange)
+      }
+    }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView(model: EmojiMemoryGame())
+  }
 }
