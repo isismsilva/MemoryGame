@@ -22,16 +22,11 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
   
   private var secondFaceUpCard: Int? {
     didSet {
-      guard let firstIndex = indexOfOneAndOnlyFaceUpCard, let secondIndex = self.secondFaceUpCard else { return }
-      let isMAtched = cards[firstIndex].content == cards[secondIndex].content
-      
-      if isMAtched {
-        cards[firstIndex].isMatched = true
-        cards[secondIndex].isMatched = true
-      } else {
-        indexOfOneAndOnlyFaceUpCard = nil
+      guard let index1 = indexOfOneAndOnlyFaceUpCard, let index2 = self.secondFaceUpCard else { return }
+      if cards[index1].content == cards[index2].content {
+        cards[index1].isMatched = true
+        cards[index2].isMatched = true
       }
-      
     }
   }
   
@@ -47,15 +42,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
           !cards[index].isMatched
     else {return }
     
-    guard (indexOfOneAndOnlyFaceUpCard != nil) else {
+    guard indexOfOneAndOnlyFaceUpCard != nil else {
       indexOfOneAndOnlyFaceUpCard = index
-      cards[index].isFaceUp = true
       return
     }
-      secondFaceUpCard = index
+    secondFaceUpCard = index
     cards[index].isFaceUp = true
-    
-    print("cards: \(cards)")
   }
   
   struct Card {

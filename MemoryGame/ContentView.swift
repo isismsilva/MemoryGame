@@ -35,16 +35,19 @@ struct CardView: View {
   let shape =  RoundedRectangle(cornerRadius: 20)
   
   var body: some View {
-    ZStack {
-      if card.isFaceUp {
-        shape.fill(.white)
-        shape.strokeBorder(.orange, lineWidth: 2)
-        Text(card.content).font(.largeTitle)
-      } else if card.isMatched {
-        shape.opacity(0)
-      } else {
-        shape.fill(Color.orange)
+    GeometryReader { geomtry in
+      ZStack {
+        if card.isFaceUp {
+          shape.fill(.white)
+          shape.strokeBorder(.orange, lineWidth: 2)
+          Text(card.content).font(Font.system(size: .maximum(geomtry.size.width, geomtry.size.height)))
+        } else if card.isMatched {
+          shape.opacity(0)
+        } else {
+          shape.fill(Color.orange)
+        }
       }
+      
     }
   }
 }
