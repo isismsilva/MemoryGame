@@ -28,7 +28,7 @@ struct Cardify: ViewModifier, Animatable {
         shape.fill(.white)
         shape.strokeBorder(.orange, lineWidth: DrawingConstants.lineWidth)
       } else {
-        shape.fill(Color.orange)
+        shape.fill(.orange)
       }
       content.opacity(rotation > 90 ? 1 : 0)
     }

@@ -15,13 +15,13 @@ struct ContentView: View {
     ZStack(alignment: .bottom) {
       VStack {
         gameBody
-        deckBody
         HStack {
           shuffleButton
           Spacer()
           restartButton
         }
       }
+      deckBody
     }
     .padding()
     .ignoresSafeArea(edges: .bottom)

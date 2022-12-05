@@ -17,7 +17,7 @@ struct RoundedButton: View {
     } label: {
       Text(title)
         .font(.system(.headline, design: .monospaced).bold())
-        .padding().padding(.horizontal)
+        .padding()
         .background(.pink)
         .cornerRadius(25)
         .foregroundColor(.white)
